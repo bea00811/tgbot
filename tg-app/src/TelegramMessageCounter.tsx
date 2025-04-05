@@ -10,8 +10,7 @@ interface TelegramUpdate {
 }
 
 const TelegramMessageCounter: React.FC = () => {
-  const [messageCount, setMessageCount] = useState<number | null>(null);
-  const [status, setStatus] = useState<string>('');
+   const [status, setStatus] = useState<string>('');
 
   const token: string = '7860280378:AAE12iDkjYJTy2gpG8RpPoiJDV9wRN6CdJc'; // Замените на ваш токен
 
@@ -20,8 +19,6 @@ const TelegramMessageCounter: React.FC = () => {
     try {
       const response = await fetch(`https://api.telegram.org/bot${token}/getUpdates`);
       const data = await response.json();
-      console.log(data.result)
-      console.log('data')
       return data.result;
     } catch (error) {
       console.error('Error fetching updates:', error);
@@ -39,13 +36,11 @@ const TelegramMessageCounter: React.FC = () => {
     });
     return count;
   };
-
   // Функция, вызываемая при изменении видимости элемента
   const handleVisibilityChange = async () => {
     setStatus('Подсчет сообщений');
     const updates = await getUpdates(token);
     const count = countMessages(updates);
-    setMessageCount(count);
     setStatus(`Число сообщений: ${count}`);
    };
 
